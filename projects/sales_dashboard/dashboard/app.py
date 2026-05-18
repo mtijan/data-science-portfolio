@@ -2,106 +2,175 @@ from pathlib import Path
 
 import pandas as pd
 import plotly.express as px
-from dash import Dash, dcc, html
-
+from dash import Dash, Input, Output, dcc, html
 
 PROJECT_DIR = Path(__file__).resolve().parents[1]
 DATA_PATH = PROJECT_DIR / "data" / "processed" / "sales_clean.csv"
 
+ACCENT = "#0f766e"
+COLOR_SEQUENCE = ["#2563eb", "#dc2626", "#16a34a", "#f59e0b", "#7c3aed", "#0891b2", "#db2777"]
 
 sales = pd.read_csv(DATA_PATH)
 sales["order_date"] = pd.to_datetime(sales["order_date"])
 
-total_sales = sales["total_sales"].sum()
-total_profit = sales["profit"].sum()
-total_orders = sales["order_id"].nunique()
-total_customers = sales["customer_name"].nunique()
-avg_order_value = total_sales / total_orders
-profit_margin = total_profit / total_sales
+region_options = [
+    {"label": region, "value": region}
+    for region in sorted(sales["region"].unique())
+]
+category_options = [
+    {"label": category, "value": category}
+    for category in sorted(sales["product_category"].unique())
+]
+segment_options = [
+    {"label": segment, "value": segment}
+    for segment in sorted(sales["customer_segment"].unique())
+]
 
-monthly_sales = (
-    sales.groupby("order_year_month", as_index=False)
-    .agg(
-        total_sales=("total_sales", "sum"),
-        total_profit=("profit", "sum"),
-        total_orders=("order_id", "nunique"),
+
+def style_figure(fig):
+    fig.update_layout(
+        template="plotly_white",
+        paper_bgcolor="white",
+        plot_bgcolor="white",
+        margin={"l": 24, "r": 18, "t": 58, "b": 36},
+        font={"family": "Arial", "color": "#17202a"},
+        title={"font": {"size": 18}, "x": 0.02, "xanchor": "left"},
+        legend={"orientation": "h", "yanchor": "bottom", "y": 1.02, "xanchor": "right", "x": 1},
     )
-)
+    fig.update_xaxes(showgrid=False, linecolor="#dfe7ec", tickfont={"color": "#60717f"})
+    fig.update_yaxes(gridcolor="#eef3f5", linecolor="#dfe7ec", tickfont={"color": "#60717f"})
+    return fig
 
-category_sales = (
-    sales.groupby("product_category", as_index=False)
-    .agg(
-        total_sales=("total_sales", "sum"),
-        total_profit=("profit", "sum"),
-        total_orders=("order_id", "nunique"),
+
+def build_figures(filtered):
+    monthly_sales = (
+        filtered.groupby("order_year_month", as_index=False)
+        .agg(
+            total_sales=("total_sales", "sum"),
+            total_profit=("profit", "sum"),
+            total_orders=("order_id", "nunique"),
+        )
     )
-    .sort_values("total_sales", ascending=False)
-)
 
-region_sales = (
-    sales.groupby("region", as_index=False)
-    .agg(
-        total_sales=("total_sales", "sum"),
-        total_profit=("profit", "sum"),
-        total_orders=("order_id", "nunique"),
+    category_sales = (
+        filtered.groupby("product_category", as_index=False)
+        .agg(
+            total_sales=("total_sales", "sum"),
+            total_profit=("profit", "sum"),
+            total_orders=("order_id", "nunique"),
+        )
+        .sort_values("total_sales", ascending=False)
     )
-    .sort_values("total_sales", ascending=False)
-)
 
-top_products = (
-    sales.groupby("product_name", as_index=False)
-    .agg(
-        total_sales=("total_sales", "sum"),
-        total_profit=("profit", "sum"),
-        quantity_sold=("quantity", "sum"),
+    region_sales = (
+        filtered.groupby("region", as_index=False)
+        .agg(
+            total_sales=("total_sales", "sum"),
+            total_profit=("profit", "sum"),
+            total_orders=("order_id", "nunique"),
+        )
+        .sort_values("total_sales", ascending=False)
     )
-    .sort_values("total_sales", ascending=False)
-    .head(10)
-)
 
-monthly_sales_fig = px.line(
-    monthly_sales,
-    x="order_year_month",
-    y="total_sales",
-    markers=True,
-    title="Monthly Sales Trend",
-)
+    top_products = (
+        filtered.groupby("product_name", as_index=False)
+        .agg(
+            total_sales=("total_sales", "sum"),
+            total_profit=("profit", "sum"),
+            quantity_sold=("quantity", "sum"),
+        )
+        .sort_values("total_sales", ascending=False)
+        .head(10)
+    )
 
-category_fig = px.bar(
-    category_sales,
-    x="product_category",
-    y="total_sales",
-    title="Sales by Product Category",
-    text_auto=".2s",
-)
+    monthly_fig = px.line(
+        monthly_sales,
+        x="order_year_month",
+        y="total_sales",
+        markers=True,
+        title="Monthly Sales Trend",
+    )
+    monthly_fig.update_traces(line={"color": ACCENT, "width": 3}, marker={"size": 7})
 
-region_fig = px.bar(
-    region_sales,
-    x="region",
-    y="total_profit",
-    title="Profit by Region",
-    text_auto=".2s",
-)
+    category_fig = px.bar(
+        category_sales,
+        x="product_category",
+        y="total_sales",
+        title="Sales by Product Category",
+        text_auto=".2s",
+        color="product_category",
+        color_discrete_sequence=COLOR_SEQUENCE,
+    )
+    category_fig.update_layout(showlegend=False)
 
-top_products_fig = px.bar(
-    top_products,
-    x="total_sales",
-    y="product_name",
-    orientation="h",
-    title="Top 10 Products by Sales",
-    text_auto=".2s",
-)
-top_products_fig.update_layout(yaxis={"categoryorder": "total ascending"})
+    region_fig = px.bar(
+        region_sales,
+        x="region",
+        y="total_profit",
+        title="Profit by Region",
+        text_auto=".2s",
+        color="region",
+        color_discrete_sequence=COLOR_SEQUENCE,
+    )
+    region_fig.update_layout(showlegend=False)
 
-discount_fig = px.scatter(
-    sales,
-    x="discount_percent",
-    y="profit",
-    color="product_category",
-    size="total_sales",
-    hover_data=["product_name", "country", "customer_segment"],
-    title="Discount vs Profit",
-)
+    top_products_fig = px.bar(
+        top_products,
+        x="total_sales",
+        y="product_name",
+        orientation="h",
+        title="Top 10 Products by Sales",
+        text_auto=".2s",
+        color_discrete_sequence=[ACCENT],
+    )
+    top_products_fig.update_layout(yaxis={"categoryorder": "total ascending"})
+
+    discount_fig = px.scatter(
+        filtered,
+        x="discount_percent",
+        y="profit",
+        color="product_category",
+        size="total_sales",
+        hover_data=["product_name", "country", "customer_segment"],
+        title="Discount Impact on Profit",
+        color_discrete_sequence=COLOR_SEQUENCE,
+    )
+    discount_fig.update_traces(marker={"opacity": 0.68, "line": {"width": 0.5, "color": "white"}})
+    discount_fig.update_layout(
+        legend={
+            "orientation": "h",
+            "yanchor": "top",
+            "y": -0.22,
+            "xanchor": "left",
+            "x": 0,
+            "title": {"text": "Product category"},
+        },
+        margin={"l": 56, "r": 18, "t": 70, "b": 120},
+    )
+
+    figures = [
+        monthly_fig,
+        category_fig,
+        region_fig,
+        top_products_fig,
+        discount_fig,
+    ]
+    styled = [style_figure(fig) for fig in figures]
+    styled[-1].update_layout(
+        legend={
+            "orientation": "h",
+            "yanchor": "top",
+            "y": -0.22,
+            "xanchor": "left",
+            "x": 0,
+            "title": {"text": "Product category"},
+        },
+        margin={"l": 56, "r": 18, "t": 70, "b": 120},
+    )
+    styled[-1].update_xaxes(title="Discount percent")
+    styled[-1].update_yaxes(title="Profit")
+    return tuple(styled)
+
 
 app = Dash(__name__)
 
@@ -119,31 +188,131 @@ app.layout = html.Div(
                 ),
             ],
         ),
-
+        html.Div(
+            className="filter-panel",
+            children=[
+                html.Div(
+                    className="filter-control",
+                    children=[
+                        html.Label("Region"),
+                        dcc.Dropdown(
+                            id="region-filter",
+                            options=region_options,
+                            value=[],
+                            multi=True,
+                            placeholder="All regions",
+                            className="filter-dropdown",
+                        ),
+                    ],
+                ),
+                html.Div(
+                    className="filter-control",
+                    children=[
+                        html.Label("Product Category"),
+                        dcc.Dropdown(
+                            id="category-filter",
+                            options=category_options,
+                            value=[],
+                            multi=True,
+                            placeholder="All categories",
+                            className="filter-dropdown",
+                        ),
+                    ],
+                ),
+                html.Div(
+                    className="filter-control",
+                    children=[
+                        html.Label("Customer Segment"),
+                        dcc.Dropdown(
+                            id="segment-filter",
+                            options=segment_options,
+                            value=[],
+                            multi=True,
+                            placeholder="All segments",
+                            className="filter-dropdown",
+                        ),
+                    ],
+                ),
+            ],
+        ),
         html.Div(
             className="kpi-grid",
             children=[
-                html.Div([html.H3("Total Sales"), html.P(f"${total_sales:,.2f}")], className="kpi-card"),
-                html.Div([html.H3("Total Profit"), html.P(f"${total_profit:,.2f}")], className="kpi-card"),
-                html.Div([html.H3("Orders"), html.P(f"{total_orders:,}")], className="kpi-card"),
-                html.Div([html.H3("Customers"), html.P(f"{total_customers:,}")], className="kpi-card"),
-                html.Div([html.H3("Avg Order Value"), html.P(f"${avg_order_value:,.2f}")], className="kpi-card"),
-                html.Div([html.H3("Profit Margin"), html.P(f"{profit_margin:.2%}")], className="kpi-card"),
+                html.Div([html.H3("Total Sales"), html.P(id="total-sales")], className="kpi-card"),
+                html.Div([html.H3("Total Profit"), html.P(id="total-profit")], className="kpi-card"),
+                html.Div([html.H3("Orders"), html.P(id="total-orders")], className="kpi-card"),
+                html.Div([html.H3("Customers"), html.P(id="total-customers")], className="kpi-card"),
+                html.Div([html.H3("Avg Order Value"), html.P(id="avg-order-value")], className="kpi-card"),
+                html.Div([html.H3("Profit Margin"), html.P(id="profit-margin")], className="kpi-card"),
             ],
         ),
-
         html.Div(
             className="chart-grid",
             children=[
-                html.Div(dcc.Graph(figure=monthly_sales_fig), className="chart-card full"),
-                html.Div(dcc.Graph(figure=category_fig), className="chart-card"),
-                html.Div(dcc.Graph(figure=region_fig), className="chart-card"),
-                html.Div(dcc.Graph(figure=top_products_fig), className="chart-card"),
-                html.Div(dcc.Graph(figure=discount_fig), className="chart-card"),
+                html.Div(dcc.Graph(id="monthly-sales-chart", config={"displayModeBar": False}), className="chart-card full"),
+                html.Div(dcc.Graph(id="category-sales-chart", config={"displayModeBar": False}), className="chart-card"),
+                html.Div(dcc.Graph(id="region-profit-chart", config={"displayModeBar": False}), className="chart-card"),
+                html.Div(dcc.Graph(id="top-products-chart", config={"displayModeBar": False}), className="chart-card"),
+                html.Div(dcc.Graph(id="discount-profit-chart", config={"displayModeBar": False}), className="chart-card"),
             ],
         ),
     ],
 )
 
+
+@app.callback(
+    Output("total-sales", "children"),
+    Output("total-profit", "children"),
+    Output("total-orders", "children"),
+    Output("total-customers", "children"),
+    Output("avg-order-value", "children"),
+    Output("profit-margin", "children"),
+    Output("monthly-sales-chart", "figure"),
+    Output("category-sales-chart", "figure"),
+    Output("region-profit-chart", "figure"),
+    Output("top-products-chart", "figure"),
+    Output("discount-profit-chart", "figure"),
+    Input("region-filter", "value"),
+    Input("category-filter", "value"),
+    Input("segment-filter", "value"),
+)
+def update_dashboard(selected_regions, selected_categories, selected_segments):
+    filtered = sales.copy()
+
+    if selected_regions:
+        filtered = filtered[filtered["region"].isin(selected_regions)]
+
+    if selected_categories:
+        filtered = filtered[filtered["product_category"].isin(selected_categories)]
+
+    if selected_segments:
+        filtered = filtered[filtered["customer_segment"].isin(selected_segments)]
+
+    total_sales = filtered["total_sales"].sum()
+    total_profit = filtered["profit"].sum()
+    total_orders = filtered["order_id"].nunique()
+    total_customers = filtered["customer_name"].nunique()
+    avg_order_value = total_sales / total_orders if total_orders else 0
+    profit_margin = total_profit / total_sales if total_sales else 0
+
+    figures = build_figures(filtered)
+
+    return (
+        f"${total_sales:,.2f}",
+        f"${total_profit:,.2f}",
+        f"{total_orders:,}",
+        f"{total_customers:,}",
+        f"${avg_order_value:,.2f}",
+        f"{profit_margin:.2%}",
+        *figures,
+    )
+
+
 if __name__ == "__main__":
     app.run(debug=True, port=8050)
+
+
+
+
+
+
