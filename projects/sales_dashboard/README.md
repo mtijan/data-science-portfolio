@@ -122,9 +122,9 @@ Charts:
 - Top products
 
 Filters:
-- Date range
-- Category
-- Country/region
+- Region
+- Product category
+- Customer segment
 ```
 
 ## Portfolio Case Study
@@ -156,7 +156,36 @@ Dashboard helps users track revenue trends, top-performing products, and regiona
 [x] Inspect columns
 [x] Build prepare_data.py
 [x] Generate data/processed/sales_clean.csv
-[ ] Build Dash dashboard app.py
-[ ] Link dashboard from Django project detail page
+[x] Build Dash dashboard app.py
+[x] Link dashboard from Django project detail page
 ```
+## Progress Checklist
 
+```text
+[x] Download ecommerce sales dataset
+[x] Store raw dataset locally
+[x] Explore dataset in notebook
+[x] Standardize column names
+[x] Parse order_date
+[x] Create feature engineering columns
+[x] Generate business KPI summary
+[x] Create EDA visualizations
+[x] Add business insights / storytelling notes
+[x] Build reusable data preparation script
+[x] Generate processed dataset
+[x] Build Dash dashboard layout
+[x] Add KPI cards
+[x] Add monthly sales trend chart
+[x] Add category sales chart
+[x] Add region profit chart
+[x] Add top products chart
+[x] Add discount impact chart
+[x] Add interactive filters
+[x] Improve dashboard visual contrast
+[x] Link dashboard from Django project detail page
+[x] Push dashboard update to GitHub
+[ ] Add date range filter
+[ ] Add dashboard screenshots to README
+[ ] Add final business recommendation section
+[ ] Prepare deployment
+```
