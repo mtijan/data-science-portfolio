@@ -219,6 +219,13 @@ body {
     line-height: 1.7;
 }
 
+.project-actions {
+    display: flex;
+    gap: 12px;
+    margin-top: 24px;
+    flex-wrap: wrap;
+}
+
 @media (max-width: 760px) {
     .project-detail {
         grid-template-columns: 1fr;

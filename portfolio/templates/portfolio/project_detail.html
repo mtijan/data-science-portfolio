@@ -12,6 +12,20 @@
         {% endfor %}
     </div>
 
+    <div class="project-actions">
+        {% if project.demo_url and project.demo_url != "#" %}
+        <a href="{{ project.demo_url }}" class="btn primary" target="_blank">
+            Open Dashboard
+        </a>
+        {% endif %}
+
+        {% if project.repo_url %}
+        <a href="{{ project.repo_url }}" class="btn secondary" target="_blank">
+            View Repository
+        </a>
+        {% endif %}
+    </div>
+    
     <a href="{% url 'projects' %}" class="text-link">Back to Projects</a>
 </section>
 

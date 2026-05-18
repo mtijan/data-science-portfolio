@@ -13,6 +13,8 @@ PROJECTS = [
         "approach": "Build an interactive dashboard with KPI cards, trend charts, and filters for exploratory analysis.",
         "result": "Decision makers can quickly identify revenue growth, weak product categories, and potential sales opportunities.",
         "status": "Planned",
+        "demo_url": "http://127.0.0.1:8050/",
+        "repo_url": "https://github.com/mtijan/data-science-portfolio",
     },
     {
         "slug": "churn-prediction",
@@ -24,6 +26,8 @@ PROJECTS = [
         "approach": "Train a classification model using customer behavior data and expose predictions through an API.",
         "result": "The model helps prioritize retention campaigns for customers with the highest churn probability.",
         "status": "Planned",
+        "demo_url": "#",
+        "repo_url": "https://github.com/mtijan/data-science-portfolio",
     },
     {
         "slug": "ai-document-assistant",
@@ -35,6 +39,8 @@ PROJECTS = [
         "approach": "Use embeddings and retrieval augmented generation to answer questions from uploaded documents.",
         "result": "Users can ask natural language questions and receive grounded answers from source documents.",
         "status": "Planned",
+        "demo_url": "#",
+        "repo_url": "https://github.com/mtijan/data-science-portfolio",
     },
 ]
 
