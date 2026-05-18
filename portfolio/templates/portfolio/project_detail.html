@@ -1,0 +1,39 @@
+{% extends "portfolio/base.html" %}
+
+{% block content %}
+<section class="section narrow">
+    <p class="project-category">{{ project.category }}</p>
+    <h1>{{ project.title }}</h1>
+    <p class="section-intro">{{ project.summary }}</p>
+
+    <div class="tool-list">
+        {% for tool in project.tools %}
+        <span>{{ tool }}</span>
+        {% endfor %}
+    </div>
+
+    <a href="{% url 'projects' %}" class="text-link">Back to Projects</a>
+</section>
+
+<section class="section project-detail">
+    <div>
+        <h2>Problem</h2>
+        <p>{{ project.problem }}</p>
+    </div>
+
+    <div>
+        <h2>Approach</h2>
+        <p>{{ project.approach }}</p>
+    </div>
+
+    <div>
+        <h2>Result</h2>
+        <p>{{ project.result }}</p>
+    </div>
+
+    <div>
+        <h2>Status</h2>
+        <p>{{ project.status }}</p>
+    </div>
+</section>
+{% endblock %}

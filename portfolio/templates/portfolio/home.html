@@ -1,0 +1,37 @@
+{% extends "portfolio/base.html" %}
+
+{% block content %}
+<section class="hero">
+    <p class="eyebrow">Data Science Portfolio</p>
+    <h1>Building data products that turn analysis into business decisions.</h1>
+    <p class="hero-text">
+        I work with SQL, Python, pandas, machine learning, dashboards, and web-based data applications.
+    </p>
+
+    <div class="hero-actions">
+        <a href="{% url 'projects' %}" class="btn primary">View Projects</a>
+        <a href="{% url 'contact' %}" class="btn secondary">Contact Me</a>
+    </div>
+</section>
+
+<section class="section">
+    <h2>Featured Projects</h2>
+
+    <div class="project-grid">
+        <article class="project-card">
+            <h3>Sales Performance Dashboard</h3>
+            <p>Interactive dashboard for tracking revenue, product performance, and customer trends.</p>
+        </article>
+
+        <article class="project-card">
+            <h3>Customer Churn Prediction</h3>
+            <p>Machine learning model to identify customers with high churn risk.</p>
+        </article>
+
+        <article class="project-card">
+            <h3>AI Document Assistant</h3>
+            <p>RAG-based assistant for asking questions from business documents.</p>
+        </article>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends "portfolio/base.html" %}
+
+{% block content %}
+<section class="section">
+    <h1>Projects</h1>
+    <p class="section-intro">
+        A collection of data science projects focused on business analytics,
+        machine learning, and AI-powered applications.
+    </p>
+
+    <div class="project-grid">
+        {% for project in projects %}
+        <article class="project-card">
+            <p class="project-category">{{ project.category }}</p>
+            <h3>{{ project.title }}</h3>
+            <p>{{ project.summary }}</p>
+
+            <div class="tool-list">
+                {% for tool in project.tools %}
+                <span>{{ tool }}</span>
+                {% endfor %}
+            </div>
+
+            <a href="{% url 'project_detail' project.slug %}" class="text-link">
+                View Case Study
+            </a>
+        </article>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}
