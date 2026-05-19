@@ -22,6 +22,9 @@
     --glow-purple: rgba(139, 92, 246, 0.07);
     
     --header-bg: rgba(9, 9, 11, 0.7);
+    --case-card-bg: rgba(15, 23, 42, 0.72);
+    --case-card-hover-bg: linear-gradient(145deg, rgba(6, 182, 212, 0.14) 0%, rgba(15, 23, 42, 0.88) 100%);
+    --case-card-hover-shadow: 0 12px 28px rgba(0, 0, 0, 0.24);
     
     /* Typography */
     --font-body: 'Plus Jakarta Sans', sans-serif;
@@ -55,6 +58,9 @@
     --glow-purple: rgba(139, 92, 246, 0.03);
     
     --header-bg: rgba(255, 255, 255, 0.85);
+    --case-card-bg: #ffffff;
+    --case-card-hover-bg: linear-gradient(145deg, rgba(11, 114, 133, 0.08) 0%, #ffffff 100%);
+    --case-card-hover-shadow: 0 12px 28px rgba(15, 23, 42, 0.12);
 }
 
 * {
@@ -492,11 +498,21 @@ h1, h2, h3, h4, h5, h6 {
     gap: 24px;
 }
 
-.case-card {
-    background: var(--bg-surface);
+.case-card,
+.case-card.impact-card {
+    background: var(--case-card-bg, var(--bg-surface));
     border: 1px solid var(--border-color);
     border-radius: 16px;
     padding: 32px;
+    transition: background var(--transition-smooth), border-color var(--transition-smooth), transform var(--transition-smooth), box-shadow var(--transition-smooth);
+}
+
+.case-card:hover,
+.case-card.impact-card:hover {
+    background: var(--case-card-hover-bg, var(--bg-surface-hover));
+    border-color: var(--border-hover);
+    box-shadow: var(--case-card-hover-shadow, 0 12px 28px rgba(0, 0, 0, 0.24));
+    transform: translateY(-2px);
 }
 
 .case-card span {
@@ -517,10 +533,6 @@ h1, h2, h3, h4, h5, h6 {
     color: var(--text-muted);
 }
 
-.impact-card {
-    background: linear-gradient(145deg, rgba(6, 182, 212, 0.1) 0%, var(--bg-surface) 100%);
-    border-color: rgba(6, 182, 212, 0.3);
-}
 
 /* Features Grid */
 .feature-section {
