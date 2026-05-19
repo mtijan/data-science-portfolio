@@ -13,6 +13,24 @@ Raw e-commerce data
 -> case study page di Django portfolio
 ```
 
+## Dashboard Preview
+
+The dashboard is designed as a business intelligence case study, not only a chart collection. It highlights KPI performance, filterable business views, and recommendations that connect analysis to decision making.
+
+![Sales Dashboard Overview](reports/sales_dashboard_overview.png)
+
+### Business Insight
+
+![Business Insight and Recommendation](reports/sales_dashboard_business_insights.png)
+
+### Analytical Views
+
+![Monthly Sales Trend](reports/monthly_sales_trend.png)
+
+![Category and Region Performance](reports/category_region_performance.png)
+
+![Product and Discount Analysis](reports/product_discount_analysis.png)
+
 ## Dataset
 
 Gunakan dataset e-commerce sales yang lebih baru agar portfolio terasa relevan.
@@ -213,7 +231,7 @@ Recommended actions:
 ## Next Steps
 
 ```text
-[ ] Add dashboard screenshot to this README
+[x] Add dashboard screenshots to this README
 [ ] Prepare deployment configuration
 [ ] Consider embedding Dash in Django via iframe for seamless portfolio flow
 ```
@@ -248,8 +266,6 @@ Recommended actions:
 [x] Legend fix on Discount Impact scatter chart (moved to bottom)
 [x] Back to Portfolio button in dashboard header
 [x] Push to GitHub
-[ ] Add dashboard screenshot to README
+[x] Add dashboard screenshots to README
 [ ] Prepare deployment
 ```
-
-
