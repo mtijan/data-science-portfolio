@@ -148,6 +148,68 @@ Result:
 Dashboard helps users track revenue trends, top-performing products, and regional performance.
 ```
 
+
+## Technical Workflow
+
+```text
+1. Download raw e-commerce dataset
+2. Explore data in notebook
+3. Clean and validate data with pandas
+4. Create business-focused features
+5. Save processed dataset
+6. Build interactive dashboard with Dash and Plotly
+7. Link dashboard from Django portfolio case study page
+```
+
+Main files:
+
+```text
+Notebook EDA:
+projects/sales_dashboard/notebooks/sales_edaa.ipynb
+
+Data preparation script:
+projects/sales_dashboard/src/prepare_data.py
+
+Processed dataset:
+projects/sales_dashboard/data/processed/sales_clean.csv
+
+Dash dashboard:
+projects/sales_dashboard/dashboard/app.py
+```
+
+Run data preparation:
+
+```powershell
+uv run python projects\sales_dashboard\src\prepare_data.py
+```
+
+Run dashboard:
+
+```powershell
+uv run python projects\sales_dashboard\dashboard\app.py
+```
+
+Local dashboard URL:
+
+```text
+http://127.0.0.1:8050/
+```
+
+## Business Recommendation
+
+The analysis shows that sales performance is mainly driven by Furniture and Technology products, while Consumer customers generate the largest revenue contribution. Europe, North America, and Asia Pacific are the strongest regional markets, showing that growth is distributed across multiple regions rather than concentrated in one area.
+
+Discount strategy should be monitored carefully. Higher discount levels are associated with lower total profit, which suggests that broad discounting may reduce profitability instead of improving business performance.
+
+Recommended actions:
+
+```text
+1. Prioritize Furniture and Technology products because they drive the highest sales.
+2. Maintain strong regional coverage across Europe, North America, and Asia Pacific.
+3. Focus retention and marketing campaigns on Consumer customers.
+4. Avoid broad high-discount campaigns.
+5. Use targeted discounts only for specific products, regions, or customer segments where volume can grow without damaging profit margin.
+```
 ## Next Steps
 
 ```text
@@ -184,8 +246,9 @@ Dashboard helps users track revenue trends, top-performing products, and regiona
 [x] Improve dashboard visual contrast
 [x] Link dashboard from Django project detail page
 [x] Push dashboard update to GitHub
-[ ] Add date range filter
+[x] Add date range filter
 [ ] Add dashboard screenshots to README
-[ ] Add final business recommendation section
+[x] Add final business recommendation section
 [ ] Prepare deployment
 ```
+
