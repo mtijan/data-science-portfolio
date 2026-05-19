@@ -5,6 +5,9 @@
 <head>
     <meta charset="UTF-8">
     <title>Data Science Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
@@ -17,6 +20,7 @@
                 <a href="{% url 'about' %}">About</a>
                 <a href="{% url 'projects' %}">Projects</a>
                 <a href="{% url 'contact' %}">Contact</a>
+                <button id="theme-toggle" class="btn secondary" style="padding: 6px 14px; font-size: 0.85rem; border-radius: 99px; background: transparent; cursor: pointer; display: flex; align-items: center; justify-content: center; min-width: 90px;">☀️ Light</button>
             </div>
         </nav>
     </header>
@@ -29,5 +33,34 @@
     <footer class="site-footer">
         <p>© 2026 Data Science Portfolio</p>
     </footer>
+
+    <script>
+        const toggleBtn = document.getElementById('theme-toggle');
+        const htmlElement = document.documentElement;
+        
+        // Cek apakah ada preferensi yang tersimpan
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            htmlElement.setAttribute('data-theme', savedTheme);
+            updateBtnText(savedTheme);
+        }
+        
+        toggleBtn.addEventListener('click', () => {
+            const currentTheme = htmlElement.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            
+            htmlElement.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            updateBtnText(newTheme);
+        });
+        
+        function updateBtnText(theme) {
+            if (theme === 'light') {
+                toggleBtn.textContent = '🌙 Dark';
+            } else {
+                toggleBtn.textContent = '☀️ Light';
+            }
+        }
+    </script>
 </body>
 </html>

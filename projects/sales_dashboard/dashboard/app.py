@@ -7,8 +7,8 @@ from dash import Dash, Input, Output, dcc, html
 PROJECT_DIR = Path(__file__).resolve().parents[1]
 DATA_PATH = PROJECT_DIR / "data" / "processed" / "sales_clean.csv"
 
-ACCENT = "#0f766e"
-COLOR_SEQUENCE = ["#2563eb", "#dc2626", "#16a34a", "#f59e0b", "#7c3aed", "#0891b2", "#db2777"]
+ACCENT = "#0891b2"
+COLOR_SEQUENCE = ["#0891b2", "#3b82f6", "#8b5cf6", "#ec4899", "#f43f5e", "#f59e0b", "#10b981"]
 
 sales = pd.read_csv(DATA_PATH)
 sales["order_date"] = pd.to_datetime(sales["order_date"])
@@ -30,15 +30,15 @@ segment_options = [
 def style_figure(fig):
     fig.update_layout(
         template="plotly_white",
-        paper_bgcolor="white",
-        plot_bgcolor="white",
+        paper_bgcolor="#ffffff",
+        plot_bgcolor="#f8fafc",
         margin={"l": 24, "r": 18, "t": 58, "b": 36},
-        font={"family": "Arial", "color": "#17202a"},
-        title={"font": {"size": 18}, "x": 0.02, "xanchor": "left"},
+        font={"family": "Plus Jakarta Sans, Arial", "color": "#1e293b"},
+        title={"font": {"size": 18, "family": "Outfit", "color": "#0f172a"}, "x": 0.02, "xanchor": "left"},
         legend={"orientation": "h", "yanchor": "bottom", "y": 1.02, "xanchor": "right", "x": 1},
     )
-    fig.update_xaxes(showgrid=False, linecolor="#dfe7ec", tickfont={"color": "#60717f"})
-    fig.update_yaxes(gridcolor="#eef3f5", linecolor="#dfe7ec", tickfont={"color": "#60717f"})
+    fig.update_xaxes(showgrid=False, linecolor="#e2e8f0", tickfont={"color": "#64748b"})
+    fig.update_yaxes(gridcolor="#e2e8f0", linecolor="#e2e8f0", tickfont={"color": "#64748b"})
     return fig
 
 
@@ -135,7 +135,7 @@ def build_figures(filtered):
         title="Discount Impact on Profit",
         color_discrete_sequence=COLOR_SEQUENCE,
     )
-    discount_fig.update_traces(marker={"opacity": 0.68, "line": {"width": 0.5, "color": "white"}})
+    discount_fig.update_traces(marker={"opacity": 0.68, "line": {"width": 0.5, "color": "#e2e8f0"}})
     discount_fig.update_layout(
         legend={
             "orientation": "h",
@@ -156,16 +156,17 @@ def build_figures(filtered):
         discount_fig,
     ]
     styled = [style_figure(fig) for fig in figures]
+    # Re-apply bottom legend for discount scatter (style_figure moves it to top)
     styled[-1].update_layout(
         legend={
             "orientation": "h",
             "yanchor": "top",
-            "y": -0.22,
+            "y": -0.28,
             "xanchor": "left",
             "x": 0,
             "title": {"text": "Product category"},
         },
-        margin={"l": 56, "r": 18, "t": 70, "b": 120},
+        margin={"l": 56, "r": 18, "t": 58, "b": 140},
     )
     styled[-1].update_xaxes(title="Discount percent")
     styled[-1].update_yaxes(title="Profit")
@@ -224,7 +225,11 @@ def generate_insights(filtered, profit_margin):
 
     return insight, recommendation
 
-app = Dash(__name__)
+
+external_stylesheets = [
+    "https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+]
+app = Dash(__name__, external_stylesheets=external_stylesheets)
 
 app.layout = html.Div(
     className="dashboard-page",
@@ -232,6 +237,11 @@ app.layout = html.Div(
         html.Div(
             className="dashboard-header",
             children=[
+                html.A(
+                    "← Back to Portfolio",
+                    href="http://127.0.0.1:8000/",
+                    className="back-btn",
+                ),
                 html.P("Sales Performance Dashboard", className="eyebrow"),
                 html.H1("Global E-Commerce Sales Analytics"),
                 html.P(
@@ -409,11 +419,3 @@ def update_dashboard(start_date, end_date, selected_regions, selected_categories
 
 if __name__ == "__main__":
     app.run(debug=True, port=8050)
-
-
-
-
-
-
-
-
