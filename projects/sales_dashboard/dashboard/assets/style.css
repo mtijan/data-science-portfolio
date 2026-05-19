@@ -53,7 +53,7 @@ body {
 
 .filter-panel {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: 1.25fr 1fr 1fr 1fr;
     gap: 14px;
     align-items: start;
     margin-bottom: 18px;
@@ -205,6 +205,79 @@ body {
     }
 
     .kpi-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.date-filter {
+    width: 100%;
+}
+
+.date-filter-control .DateRangePicker,
+.date-filter-control .DateRangePickerInput {
+    width: 100%;
+}
+
+.date-filter-control .DateRangePickerInput {
+    display: flex;
+    align-items: center;
+    min-height: 38px;
+    border: 1px solid #d9e4ea;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.date-filter-control .DateInput {
+    width: 45%;
+}
+
+.date-filter-control .DateInput_input {
+    height: 36px;
+    padding: 8px 10px;
+    border: 0;
+    color: #17202a;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.date-filter-control .DateRangePickerInput_arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 10%;
+    padding: 0 6px;
+}
+
+.insight-panel {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+    margin-bottom: 18px;
+}
+
+.insight-card {
+    background: #ffffff;
+    border: 1px solid #dfe7ec;
+    border-left: 4px solid var(--accent);
+    border-radius: 8px;
+    padding: 18px;
+}
+
+.insight-card h3 {
+    margin: 0 0 8px;
+    color: #17202a;
+    font-size: 15px;
+}
+
+.insight-card p {
+    margin: 0;
+    color: #60717f;
+    line-height: 1.6;
+    font-size: 14px;
+}
+
+@media (max-width: 860px) {
+    .insight-panel {
         grid-template-columns: 1fr;
     }
 }

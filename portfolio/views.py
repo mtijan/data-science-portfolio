@@ -81,3 +81,4 @@ def project_detail(request, slug):
 
 def contact(request):
     return render(request, "portfolio/contact.html")
+

@@ -1,53 +1,95 @@
 {% extends "portfolio/base.html" %}
 
 {% block content %}
-<section class="section narrow">
-    <p class="project-category">{{ project.category }}</p>
-    <h1>{{ project.title }}</h1>
-    <p class="section-intro">{{ project.summary }}</p>
+<section class="project-hero-detail">
+    <a href="{% url 'projects' %}" class="back-link">Back to Projects</a>
 
-    <div class="tool-list">
-        {% for tool in project.tools %}
-        <span>{{ tool }}</span>
-        {% endfor %}
+    <div class="project-hero-layout">
+        <div class="project-hero-copy">
+            <p class="project-category">{{ project.category }}</p>
+            <h1>{{ project.title }}</h1>
+            <p class="section-intro">{{ project.summary }}</p>
+
+            <div class="tool-list">
+                {% for tool in project.tools %}
+                <span>{{ tool }}</span>
+                {% endfor %}
+            </div>
+
+            <div class="project-actions">
+                {% if project.demo_url and project.demo_url != "#" %}
+                <a href="{{ project.demo_url }}" class="btn primary" target="_blank">
+                    Open Dashboard
+                </a>
+                {% endif %}
+
+                {% if project.repo_url %}
+                <a href="{{ project.repo_url }}" class="btn secondary" target="_blank">
+                    View Repository
+                </a>
+                {% endif %}
+            </div>
+        </div>
+
+        <aside class="project-summary-panel">
+            <div>
+                <span>Status</span>
+                <strong>{{ project.status }}</strong>
+            </div>
+            <div>
+                <span>Focus</span>
+                <strong>{{ project.category }}</strong>
+            </div>
+            <div>
+                <span>Output</span>
+                <strong>Interactive dashboard</strong>
+            </div>
+        </aside>
     </div>
-
-    <div class="project-actions">
-        {% if project.demo_url and project.demo_url != "#" %}
-        <a href="{{ project.demo_url }}" class="btn primary" target="_blank">
-            Open Dashboard
-        </a>
-        {% endif %}
-
-        {% if project.repo_url %}
-        <a href="{{ project.repo_url }}" class="btn secondary" target="_blank">
-            View Repository
-        </a>
-        {% endif %}
-    </div>
-    
-    <a href="{% url 'projects' %}" class="text-link">Back to Projects</a>
 </section>
 
-<section class="section project-detail">
-    <div>
+<section class="section case-study-grid">
+    <article class="case-card">
+        <span>01</span>
         <h2>Problem</h2>
         <p>{{ project.problem }}</p>
-    </div>
+    </article>
 
-    <div>
+    <article class="case-card">
+        <span>02</span>
         <h2>Approach</h2>
         <p>{{ project.approach }}</p>
-    </div>
+    </article>
 
-    <div>
+    <article class="case-card">
+        <span>03</span>
         <h2>Result</h2>
         <p>{{ project.result }}</p>
+    </article>
+
+    {% if project.business_impact %}
+    <article class="case-card impact-card">
+        <span>04</span>
+        <h2>Business Impact</h2>
+        <p>{{ project.business_impact }}</p>
+    </article>
+    {% endif %}
+</section>
+
+{% if project.features %}
+<section class="section feature-section">
+    <div class="section-heading-row">
+        <div>
+            <p class="project-category">Dashboard Scope</p>
+            <h2>Dashboard Features</h2>
+        </div>
     </div>
 
-    <div>
-        <h2>Status</h2>
-        <p>{{ project.status }}</p>
+    <div class="feature-grid">
+        {% for feature in project.features %}
+        <div class="feature-item">{{ feature }}</div>
+        {% endfor %}
     </div>
 </section>
+{% endif %}
 {% endblock %}

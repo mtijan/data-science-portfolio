@@ -172,6 +172,58 @@ def build_figures(filtered):
     return tuple(styled)
 
 
+def generate_insights(filtered, profit_margin):
+    if filtered.empty:
+        return (
+            "No data is available for the selected filters.",
+            "Try expanding the date range or removing one of the filters.",
+        )
+
+    top_category = (
+        filtered.groupby("product_category", as_index=False)
+        .agg(total_sales=("total_sales", "sum"))
+        .sort_values("total_sales", ascending=False)
+        .iloc[0]
+    )
+    top_region = (
+        filtered.groupby("region", as_index=False)
+        .agg(total_profit=("profit", "sum"))
+        .sort_values("total_profit", ascending=False)
+        .iloc[0]
+    )
+    top_segment = (
+        filtered.groupby("customer_segment", as_index=False)
+        .agg(total_sales=("total_sales", "sum"))
+        .sort_values("total_sales", ascending=False)
+        .iloc[0]
+    )
+
+    insight = (
+        f"{top_category['product_category']} leads the selected view with "
+        f"${top_category['total_sales']:,.2f} in sales. "
+        f"{top_region['region']} contributes the highest profit at "
+        f"${top_region['total_profit']:,.2f}, while the "
+        f"{top_segment['customer_segment']} segment shows the strongest demand."
+    )
+
+    if profit_margin >= 0.30:
+        recommendation = (
+            f"Profit margin is healthy at {profit_margin:.2%}. "
+            "Maintain focus on high-performing categories while monitoring discount levels."
+        )
+    elif profit_margin >= 0.15:
+        recommendation = (
+            f"Profit margin is moderate at {profit_margin:.2%}. "
+            "Review discount strategy and shipping cost to protect profitability."
+        )
+    else:
+        recommendation = (
+            f"Profit margin is low at {profit_margin:.2%}. "
+            "Prioritize margin recovery by reducing broad discounts and focusing on profitable products."
+        )
+
+    return insight, recommendation
+
 app = Dash(__name__)
 
 app.layout = html.Div(
@@ -191,6 +243,21 @@ app.layout = html.Div(
         html.Div(
             className="filter-panel",
             children=[
+                html.Div(
+                    className="filter-control date-filter-control",
+                    children=[
+                        html.Label("Order Date"),
+                        dcc.DatePickerRange(
+                            id="date-filter",
+                            min_date_allowed=sales["order_date"].min(),
+                            max_date_allowed=sales["order_date"].max(),
+                            start_date=sales["order_date"].min(),
+                            end_date=sales["order_date"].max(),
+                            display_format="YYYY-MM-DD",
+                            className="date-filter",
+                        ),
+                    ],
+                ),
                 html.Div(
                     className="filter-control",
                     children=[
@@ -247,6 +314,25 @@ app.layout = html.Div(
             ],
         ),
         html.Div(
+            className="insight-panel",
+            children=[
+                html.Div(
+                    className="insight-card",
+                    children=[
+                        html.H3("Business Insight"),
+                        html.P(id="business-insight"),
+                    ],
+                ),
+                html.Div(
+                    className="insight-card",
+                    children=[
+                        html.H3("Recommendation"),
+                        html.P(id="business-recommendation"),
+                    ],
+                ),
+            ],
+        ),
+        html.Div(
             className="chart-grid",
             children=[
                 html.Div(dcc.Graph(id="monthly-sales-chart", config={"displayModeBar": False}), className="chart-card full"),
@@ -267,17 +353,27 @@ app.layout = html.Div(
     Output("total-customers", "children"),
     Output("avg-order-value", "children"),
     Output("profit-margin", "children"),
+    Output("business-insight", "children"),
+    Output("business-recommendation", "children"),
     Output("monthly-sales-chart", "figure"),
     Output("category-sales-chart", "figure"),
     Output("region-profit-chart", "figure"),
     Output("top-products-chart", "figure"),
     Output("discount-profit-chart", "figure"),
+    Input("date-filter", "start_date"),
+    Input("date-filter", "end_date"),
     Input("region-filter", "value"),
     Input("category-filter", "value"),
     Input("segment-filter", "value"),
 )
-def update_dashboard(selected_regions, selected_categories, selected_segments):
+def update_dashboard(start_date, end_date, selected_regions, selected_categories, selected_segments):
     filtered = sales.copy()
+
+    if start_date:
+        filtered = filtered[filtered["order_date"] >= pd.to_datetime(start_date)]
+
+    if end_date:
+        filtered = filtered[filtered["order_date"] <= pd.to_datetime(end_date)]
 
     if selected_regions:
         filtered = filtered[filtered["region"].isin(selected_regions)]
@@ -294,6 +390,7 @@ def update_dashboard(selected_regions, selected_categories, selected_segments):
     total_customers = filtered["customer_name"].nunique()
     avg_order_value = total_sales / total_orders if total_orders else 0
     profit_margin = total_profit / total_sales if total_sales else 0
+    business_insight, business_recommendation = generate_insights(filtered, profit_margin)
 
     figures = build_figures(filtered)
 
@@ -304,12 +401,16 @@ def update_dashboard(selected_regions, selected_categories, selected_segments):
         f"{total_customers:,}",
         f"${avg_order_value:,.2f}",
         f"{profit_margin:.2%}",
+        business_insight,
+        business_recommendation,
         *figures,
     )
 
 
 if __name__ == "__main__":
     app.run(debug=True, port=8050)
+
+
 
 
 
