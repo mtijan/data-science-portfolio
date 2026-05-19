@@ -213,14 +213,11 @@ Recommended actions:
 ## Next Steps
 
 ```text
-[x] Download dataset from Kaggle
-[x] Save as data/raw/ecommerce_sales.csv
-[x] Inspect columns
-[x] Build prepare_data.py
-[x] Generate data/processed/sales_clean.csv
-[x] Build Dash dashboard app.py
-[x] Link dashboard from Django project detail page
+[ ] Add dashboard screenshot to this README
+[ ] Prepare deployment configuration
+[ ] Consider embedding Dash in Django via iframe for seamless portfolio flow
 ```
+
 ## Progress Checklist
 
 ```text
@@ -236,19 +233,23 @@ Recommended actions:
 [x] Build reusable data preparation script
 [x] Generate processed dataset
 [x] Build Dash dashboard layout
-[x] Add KPI cards
+[x] Add KPI cards (Total Sales, Profit, Orders, Customers, AOV, Profit Margin)
 [x] Add monthly sales trend chart
 [x] Add category sales chart
 [x] Add region profit chart
 [x] Add top products chart
 [x] Add discount impact chart
-[x] Add interactive filters
-[x] Improve dashboard visual contrast
+[x] Add interactive filters (Date, Region, Product Category, Customer Segment)
+[x] Add dynamic business insight and recommendation text
 [x] Link dashboard from Django project detail page
-[x] Push dashboard update to GitHub
-[x] Add date range filter
-[ ] Add dashboard screenshots to README
-[x] Add final business recommendation section
+[x] Light mode UI polish (white panels, cyan accent, subtle grid background)
+[x] Plotly charts - clean light mode with plotly_white template
+[x] Proper readable axis labels on all charts (Revenue ($), Profit ($), etc.)
+[x] Legend fix on Discount Impact scatter chart (moved to bottom)
+[x] Back to Portfolio button in dashboard header
+[x] Push to GitHub
+[ ] Add dashboard screenshot to README
 [ ] Prepare deployment
 ```
+
 

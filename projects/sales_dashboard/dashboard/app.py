@@ -89,6 +89,7 @@ def build_figures(filtered):
         y="total_sales",
         markers=True,
         title="Monthly Sales Trend",
+        labels={"order_year_month": "Month", "total_sales": "Revenue ($)"},
     )
     monthly_fig.update_traces(line={"color": ACCENT, "width": 3}, marker={"size": 7})
 
@@ -100,6 +101,7 @@ def build_figures(filtered):
         text_auto=".2s",
         color="product_category",
         color_discrete_sequence=COLOR_SEQUENCE,
+        labels={"product_category": "", "total_sales": "Revenue ($)"},
     )
     category_fig.update_layout(showlegend=False)
 
@@ -111,6 +113,7 @@ def build_figures(filtered):
         text_auto=".2s",
         color="region",
         color_discrete_sequence=COLOR_SEQUENCE,
+        labels={"region": "", "total_profit": "Profit ($)"},
     )
     region_fig.update_layout(showlegend=False)
 
@@ -122,6 +125,7 @@ def build_figures(filtered):
         title="Top 10 Products by Sales",
         text_auto=".2s",
         color_discrete_sequence=[ACCENT],
+        labels={"total_sales": "Revenue ($)", "product_name": ""},
     )
     top_products_fig.update_layout(yaxis={"categoryorder": "total ascending"})
 
@@ -168,8 +172,8 @@ def build_figures(filtered):
         },
         margin={"l": 56, "r": 18, "t": 58, "b": 140},
     )
-    styled[-1].update_xaxes(title="Discount percent")
-    styled[-1].update_yaxes(title="Profit")
+    styled[-1].update_xaxes(title="Discount (%)", dtick=5)
+    styled[-1].update_yaxes(title="Profit ($)")
     return tuple(styled)
 
 
