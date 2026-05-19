@@ -5,6 +5,7 @@ __pycache__/
 db.sqlite3
 
 note.md
+note_utama.md
 step.md
 
 .env
@@ -20,3 +21,5 @@ projects/*/vector_store/
 *.pkl
 *.joblib
 note_command.md
+
+
