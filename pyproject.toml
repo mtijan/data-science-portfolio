@@ -8,6 +8,8 @@ dependencies = [
     "dash>=4.1.0",
     "django>=5.2.14",
     "ipykernel>=7.2.0",
+    "matplotlib>=3.10.9",
     "pandas>=3.0.3",
     "plotly>=6.7.0",
+    "seaborn>=0.13.2",
 ]
