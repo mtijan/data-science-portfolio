@@ -18,7 +18,6 @@ Processed file: projects/churn_prediction/data/processed/churn_clean.csv
 
 The raw and processed datasets are stored locally and ignored by git.
 
-
 ## Dataset Decision
 
 This project initially explored an e-commerce churn dataset, but the dataset did not provide strong predictive signal for valid churn modeling. Some public notebooks achieved very high scores by using subscription status as both a feature and the target, which creates data leakage.
@@ -69,6 +68,12 @@ projects/churn_prediction/notebooks/churn_eda.ipynb
 
 Modeling notebook:
 projects/churn_prediction/notebooks/churn_modeling.ipynb
+
+Training script:
+projects/churn_prediction/src/train_model.py
+
+Evaluation report:
+projects/churn_prediction/reports/evaluation_summary.md
 ```
 
 ## Run Data Preparation
@@ -76,6 +81,14 @@ projects/churn_prediction/notebooks/churn_modeling.ipynb
 ```powershell
 uv run python projects\churn_prediction\src\prepare_data.py
 ```
+
+## Run Model Training
+
+```powershell
+uv run python projects\churn_prediction\src\train_model.py
+```
+
+This creates a local ignored model artifact and a tracked evaluation report.
 
 ## Progress Checklist
 
@@ -90,8 +103,8 @@ uv run python projects\churn_prediction\src\prepare_data.py
 [x] Compare multiple baseline models
 [x] Achieve valid ROC-AUC above 0.80 without data leakage
 [x] Add threshold tuning for churn recall
-[ ] Save best model to models/
-[ ] Create evaluation report
+[x] Save best model to models/ (local, ignored by git)
+[x] Create evaluation report
 [ ] Update Django project detail page
 [ ] Add portfolio-ready screenshots/figures
 ```
