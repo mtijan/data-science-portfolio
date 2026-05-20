@@ -1,27 +1,97 @@
 # Customer Churn Prediction
 
-Machine learning project to predict customers who are likely to churn.
+Machine learning project to predict customers who are likely to churn using the Telco Customer Churn dataset.
 
 ## Goal
 
 Build a classification model that helps business teams identify high-risk customers and prioritize retention campaigns.
 
+## Dataset
+
+Dataset used:
+
+```text
+Telco Customer Churn
+Raw file: projects/churn_prediction/data/raw/telco_customer_churn.csv
+Processed file: projects/churn_prediction/data/processed/churn_clean.csv
+```
+
+The raw and processed datasets are stored locally and ignored by git.
+
+
+## Dataset Decision
+
+This project initially explored an e-commerce churn dataset, but the dataset did not provide strong predictive signal for valid churn modeling. Some public notebooks achieved very high scores by using subscription status as both a feature and the target, which creates data leakage.
+
+The project was rebuilt with the Telco Customer Churn dataset because it provides clearer churn labels and stronger business features such as tenure, contract type, monthly charges, payment method, and service usage.
+
 ## Workflow
 
-1. Load customer churn dataset
-2. Explore customer behavior and churn patterns
-3. Clean and prepare data
-4. Engineer useful features
-5. Train classification models
-6. Evaluate model performance
-7. Save trained model
-8. Present business recommendation
+1. Load Telco customer churn dataset
+2. Clean and standardize columns
+3. Convert `TotalCharges` to numeric
+4. Create churn target `is_churned`
+5. Engineer customer and billing features
+6. Explore churn patterns with EDA visualizations
+7. Train multiple classification models
+8. Tune decision threshold for churn detection
+9. Translate model results into business recommendations
 
-## Planned Outputs
+## Current Results
 
-- Cleaned dataset
-- EDA notebook
-- Trained classification model
-- Evaluation report
-- Business insights
-- Portfolio case study
+Best model so far:
+
+```text
+Model: Gradient Boosting
+ROC-AUC: 0.8435
+Default threshold recall churn: 0.5134
+Selected threshold: 0.28
+Selected threshold recall churn: 0.7888
+Selected threshold precision churn: 0.5315
+Selected threshold F1 churn: 0.6351
+```
+
+Business interpretation:
+
+```text
+Customers with month-to-month contracts, short tenure, high monthly charges,
+and electronic check payment are more likely to churn.
+```
+
+## Main Files
+
+```text
+Data preparation:
+projects/churn_prediction/src/prepare_data.py
+
+EDA notebook:
+projects/churn_prediction/notebooks/churn_eda.ipynb
+
+Modeling notebook:
+projects/churn_prediction/notebooks/churn_modeling.ipynb
+```
+
+## Run Data Preparation
+
+```powershell
+uv run python projects\churn_prediction\src\prepare_data.py
+```
+
+## Progress Checklist
+
+```text
+[x] Replace e-commerce churn dataset with Telco Customer Churn dataset
+[x] Clean and standardize Telco columns
+[x] Create processed dataset
+[x] Create churn target `is_churned`
+[x] Add feature engineering columns
+[x] Rebuild EDA notebook for Telco dataset
+[x] Rebuild modeling notebook for Telco dataset
+[x] Compare multiple baseline models
+[x] Achieve valid ROC-AUC above 0.80 without data leakage
+[x] Add threshold tuning for churn recall
+[ ] Save best model to models/
+[ ] Create evaluation report
+[ ] Update Django project detail page
+[ ] Add portfolio-ready screenshots/figures
+```
