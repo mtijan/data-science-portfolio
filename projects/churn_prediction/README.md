@@ -72,6 +72,28 @@ Customers with month-to-month contracts, short tenure, high monthly charges,
 and electronic check payment are more likely to churn.
 ```
 
+## Key Visuals
+
+The EDA and modeling results highlight the main churn risk patterns and the current model performance.
+
+### Churn by Contract Type
+
+Month-to-month customers have the highest churn rate, making them a priority segment for retention campaigns.
+
+![Churn Rate by Contract Type](reports/figures/churn_by_contract.png)
+
+### Churn by Tenure Group
+
+Newer customers are more likely to churn, especially within the first 12 months.
+
+![Churn Rate by Tenure Group](reports/figures/churn_by_tenure_group.png)
+
+### Model Performance
+
+The Gradient Boosting model achieves strong ranking performance with ROC-AUC above 0.80 and recall near 0.79 at the selected threshold.
+
+![Gradient Boosting Model Performance](reports/figures/model_performance.png)
+
 ## Main Files
 
 ```text
@@ -121,5 +143,5 @@ This creates a local ignored model artifact and a tracked evaluation report.
 [x] Save best model to models/ (local, ignored by git)
 [x] Create evaluation report
 [ ] Update Django project detail page
-[ ] Add portfolio-ready screenshots/figures
+[x] Add portfolio-ready screenshots/figures
 ```
