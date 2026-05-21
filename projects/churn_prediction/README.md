@@ -94,6 +94,42 @@ The Gradient Boosting model achieves strong ranking performance with ROC-AUC abo
 
 ![Gradient Boosting Model Performance](reports/figures/model_performance.png)
 
+## Interactive Dashboard
+
+This project includes an interactive Dash dashboard for exploring churn patterns and testing customer churn risk scenarios.
+
+The dashboard provides:
+
+- KPI cards for total customers, churned customers, retained customers, churn rate, and average monthly charges.
+- Interactive filters for contract type, tenure group, payment method, and internet service.
+- Churn rate charts by contract, tenure group, payment method, and internet service.
+- A churn risk prediction form powered by the trained Gradient Boosting model.
+- Business-friendly prediction output with simple risk labels and recommended retention actions.
+
+Run the dashboard:
+
+```powershell
+uv run python projects/churn_prediction/dashboard/app.py
+```
+
+Open in browser:
+
+```text
+http://127.0.0.1:8051/
+```
+
+The dashboard uses the local model artifact:
+
+```text
+projects/churn_prediction/models/churn_gradient_boosting.joblib
+```
+
+The model artifact is intentionally not committed to GitHub. Recreate it by running:
+
+```powershell
+uv run python projects/churn_prediction/src/train_model.py
+```
+
 ## Main Files
 
 ```text
@@ -116,13 +152,13 @@ projects/churn_prediction/reports/evaluation_summary.md
 ## Run Data Preparation
 
 ```powershell
-uv run python projects\churn_prediction\src\prepare_data.py
+uv run python projects/churn_prediction/src/prepare_data.py
 ```
 
 ## Run Model Training
 
 ```powershell
-uv run python projects\churn_prediction\src\train_model.py
+uv run python projects/churn_prediction/src/train_model.py
 ```
 
 This creates a local ignored model artifact and a tracked evaluation report.
@@ -144,4 +180,5 @@ This creates a local ignored model artifact and a tracked evaluation report.
 [x] Create evaluation report
 [ ] Update Django project detail page
 [x] Add portfolio-ready screenshots/figures
+[x] Create interactive churn dashboard with prediction form
 ```

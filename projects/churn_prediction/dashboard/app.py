@@ -395,15 +395,47 @@ def predict_churn(
 
     churn_probability = model.predict_proba(prediction_row)[0, 1]
     is_high_risk = churn_probability >= threshold
-    risk_label = "High churn risk" if is_high_risk else "Lower churn risk"
+    risk_label = "Needs attention" if is_high_risk else "Looks stable"
     result_class = "risk-high" if is_high_risk else "risk-low"
+    probability_text = f"About {churn_probability:.0%} chance this customer may leave."
+
+    if is_high_risk:
+        simple_meaning = "This customer should be prioritized by the retention team."
+        action_items = [
+            "Contact the customer before the next billing cycle.",
+            "Review contract, support issues, and monthly charges.",
+            "Offer a retention incentive if the account is valuable.",
+        ]
+    else:
+        simple_meaning = "This customer is not an urgent churn case right now."
+        action_items = [
+            "Keep monitoring the customer over time.",
+            "Maintain service quality and billing experience.",
+            "No immediate retention campaign is required.",
+        ]
 
     return html.Div(
         className=result_class,
         children=[
-            html.H3(risk_label),
-            html.P(f"Predicted churn probability: {churn_probability:.2%}"),
-            html.P(f"Decision threshold: {threshold:.0%}"),
+            html.Div(
+                className="prediction-result-header",
+                children=[
+                    html.H3(risk_label),
+                    html.P(probability_text, className="prediction-score"),
+                ],
+            ),
+            html.P(simple_meaning, className="prediction-meaning"),
+            html.Div(
+                className="prediction-action-box",
+                children=[
+                    html.H4("Recommended action"),
+                    html.Ul([html.Li(item) for item in action_items]),
+                ],
+            ),
+            html.P(
+                f"Model note: high risk means the score is above the {threshold:.0%} decision threshold.",
+                className="prediction-note",
+            ),
         ],
     )
 
