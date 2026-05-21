@@ -6,6 +6,21 @@ Machine learning project to predict customers who are likely to churn using the 
 
 Build a classification model that helps business teams identify high-risk customers and prioritize retention campaigns.
 
+## What Is Churn?
+
+Customer churn happens when a customer stops using a product or service. In this project, churn means a Telco customer has ended their subscription.
+
+Churn is important because losing existing customers can reduce recurring revenue and increase acquisition costs. It is usually more expensive to acquire a new customer than to retain an existing one, so identifying churn risk early helps the business take action before the customer leaves.
+
+A churn prediction model helps answer questions such as:
+
+```text
+- Which customers are most likely to leave?
+- What customer behaviors are linked to churn?
+- Which customer segments should receive retention campaigns first?
+- How can the business reduce revenue loss from customer churn?
+```
+
 ## Dataset
 
 Dataset used:
