@@ -30,7 +30,10 @@ def dropdown_options(column):
     return [{"label": item, "value": item} for item in sorted(df[column].dropna().unique())]
 
 
-app = Dash(__name__)
+external_stylesheets = [
+    "https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap"
+]
+app = Dash(__name__, external_stylesheets=external_stylesheets)
 
 
 def build_bar_chart(data, group_column, title, x_label):
@@ -51,7 +54,18 @@ def build_bar_chart(data, group_column, title, x_label):
         text="is_churned",
     )
     fig.update_traces(texttemplate="%{text:.1%}", textposition="outside")
-    fig.update_layout(showlegend=False, yaxis_tickformat=".0%", margin=dict(t=70, r=24, b=70, l=56))
+    fig.update_layout(
+        template="plotly_white",
+        paper_bgcolor="#ffffff",
+        plot_bgcolor="#f5fbfe",
+        showlegend=False,
+        yaxis_tickformat=".0%",
+        margin={"l": 56, "r": 24, "t": 58, "b": 46},
+        font={"family": "Plus Jakarta Sans, Arial", "color": "#1e293b"},
+        title={"font": {"size": 18, "family": "Outfit", "color": "#0f172a"}, "x": 0.02, "xanchor": "left"},
+    )
+    fig.update_xaxes(gridcolor="#e2e8f0", zerolinecolor="#e2e8f0")
+    fig.update_yaxes(gridcolor="#e2e8f0", zerolinecolor="#e2e8f0")
     return fig
 
 
@@ -146,7 +160,7 @@ app.layout = html.Div(
             className="dashboard-header",
             children=[
                 html.A(
-                    "<- Back to Portfolio",
+                    "\u2190 Back to Portfolio",
                     href="http://127.0.0.1:8000/",
                     className="back-btn",
                 ),
@@ -447,3 +461,4 @@ def predict_churn(
 
 if __name__ == "__main__":
     app.run(debug=True, port=8051)
+

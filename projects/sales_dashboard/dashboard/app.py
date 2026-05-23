@@ -31,7 +31,7 @@ def style_figure(fig):
     fig.update_layout(
         template="plotly_white",
         paper_bgcolor="#ffffff",
-        plot_bgcolor="#f8fafc",
+        plot_bgcolor="#f5fbfe",
         margin={"l": 24, "r": 18, "t": 58, "b": 36},
         font={"family": "Plus Jakarta Sans, Arial", "color": "#1e293b"},
         title={"font": {"size": 18, "family": "Outfit", "color": "#0f172a"}, "x": 0.02, "xanchor": "left"},
@@ -242,7 +242,7 @@ app.layout = html.Div(
             className="dashboard-header",
             children=[
                 html.A(
-                    "← Back to Portfolio",
+                    "\u2190 Back to Portfolio",
                     href="http://127.0.0.1:8000/",
                     className="back-btn",
                 ),
@@ -423,3 +423,4 @@ def update_dashboard(start_date, end_date, selected_regions, selected_categories
 
 if __name__ == "__main__":
     app.run(debug=True, port=8050)
+

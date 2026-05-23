@@ -802,3 +802,414 @@ body {
     border-color: var(--teal);
     transform: translateY(-1px);
 }
+
+/* Align churn dashboard header with sales dashboard header */
+.dashboard-header {
+    margin-bottom: 22px !important;
+    padding: 0 !important;
+    background: transparent !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+}
+
+.dashboard-header h1 {
+    margin: 0 !important;
+    max-width: 820px;
+    color: var(--ink);
+    font-size: 40px;
+    line-height: 1.15;
+    letter-spacing: 0;
+}
+
+.dashboard-header p:not(.eyebrow) {
+    max-width: 760px;
+    margin: 12px 0 0 !important;
+    color: var(--muted);
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+.dashboard-header .eyebrow {
+    margin: 0 0 8px !important;
+    color: var(--teal);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.back-btn {
+    margin-bottom: 18px !important;
+    padding: 6px 14px !important;
+    border: 1px solid var(--line) !important;
+    border-radius: 20px !important;
+    color: var(--muted) !important;
+    background: transparent !important;
+    font-size: 13px !important;
+    font-weight: 600 !important;
+    box-shadow: none !important;
+}
+
+.back-btn:hover {
+    border-color: var(--teal) !important;
+    color: var(--teal) !important;
+    background: rgba(0, 124, 137, 0.08) !important;
+    transform: none !important;
+}
+
+@media (max-width: 820px) {
+    .dashboard-header {
+        padding: 0 !important;
+    }
+
+    .dashboard-header h1 {
+        font-size: 34px;
+    }
+}
+
+@media (max-width: 640px) {
+    .dashboard-header h1 {
+        font-size: 30px;
+    }
+}
+
+/* Align overall board foundation with sales dashboard */
+:root {
+    --bg: #f8fafc;
+    --surface: #ffffff;
+    --surface-soft: #f8fafc;
+    --teal: #0891b2;
+    --teal-dark: #0891b2;
+    --teal-soft: rgba(8, 145, 178, 0.1);
+    --ink: #1e293b;
+    --muted: #64748b;
+    --line: #e2e8f0;
+    --shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
+}
+
+body {
+    background-color: var(--bg) !important;
+    background-image:
+        linear-gradient(rgba(14, 165, 233, 0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(14, 165, 233, 0.06) 1px, transparent 1px) !important;
+    background-size: 32px 32px !important;
+    color: var(--ink) !important;
+    font-family: 'Plus Jakarta Sans', Arial, sans-serif !important;
+}
+
+.dashboard-page {
+    max-width: 1240px !important;
+    width: auto !important;
+    margin: 0 auto !important;
+    padding: 32px 24px 48px !important;
+}
+
+.filter-panel,
+.prediction-section,
+.chart-card,
+.kpi-card {
+    background: var(--surface) !important;
+    border: 1px solid var(--line) !important;
+    border-radius: 12px !important;
+    box-shadow: var(--shadow) !important;
+}
+
+.filter-panel {
+    padding: 18px 20px !important;
+    margin-bottom: 20px !important;
+}
+
+.kpi-grid {
+    gap: 14px !important;
+    margin-bottom: 20px !important;
+}
+
+.kpi-card {
+    min-height: auto !important;
+    padding: 20px 18px !important;
+    border-top: 4px solid var(--teal) !important;
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.kpi-card:hover {
+    box-shadow: 0 4px 12px rgba(8, 145, 178, 0.12) !important;
+    transform: translateY(-2px);
+}
+
+.kpi-card h3 {
+    margin: 0 0 8px !important;
+    color: var(--muted) !important;
+    font-size: 11px !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.06em !important;
+}
+
+.kpi-card p {
+    color: var(--teal) !important;
+    font-size: 24px !important;
+    font-weight: 700 !important;
+    letter-spacing: -0.02em !important;
+}
+
+.chart-grid {
+    gap: 14px !important;
+}
+
+.chart-card {
+    padding: 6px !important;
+    min-height: auto !important;
+}
+
+.prediction-section {
+    margin-top: 20px !important;
+}
+
+/* Portfolio dashboard blue theme alignment */
+:root {
+    --bg: #eaf6fb;
+    --surface: #ffffff;
+    --surface-soft: #f5fbfe;
+    --teal: #0787a5;
+    --teal-dark: #066d86;
+    --teal-soft: rgba(7, 135, 165, 0.12);
+    --ink: #102a43;
+    --muted: #516c82;
+    --line: #cfe4ee;
+    --shadow: 0 1px 3px rgba(16, 42, 67, 0.07);
+}
+
+body {
+    background-color: var(--bg) !important;
+    background-image:
+        linear-gradient(rgba(8, 145, 178, 0.10) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(8, 145, 178, 0.10) 1px, transparent 1px) !important;
+    background-size: 32px 32px !important;
+    color: var(--ink) !important;
+}
+/* Final alignment with sales dashboard sizing */
+.dashboard-page {
+    max-width: 1240px !important;
+    width: auto !important;
+    margin: 0 auto !important;
+    padding: 32px 24px 48px !important;
+}
+
+.dashboard-header {
+    margin-bottom: 22px !important;
+}
+
+.dashboard-header h1 {
+    max-width: 820px !important;
+    font-family: 'Outfit', sans-serif !important;
+    font-size: 40px !important;
+    line-height: 1.15 !important;
+    letter-spacing: -0.02em !important;
+    color: #0f172a !important;
+}
+
+.dashboard-header p:not(.eyebrow) {
+    max-width: 760px !important;
+    margin: 12px 0 0 !important;
+    color: var(--muted) !important;
+    font-size: 16px !important;
+    line-height: 1.6 !important;
+}
+
+.back-btn {
+    gap: 6px !important;
+    margin-bottom: 18px !important;
+    padding: 6px 14px !important;
+    border-radius: 20px !important;
+    font-size: 13px !important;
+    font-weight: 600 !important;
+}
+
+.filter-panel,
+.kpi-card,
+.chart-card,
+.prediction-section {
+    background: var(--surface) !important;
+    border: 1px solid var(--line) !important;
+    border-radius: 12px !important;
+    box-shadow: 0 1px 3px rgba(16, 42, 67, 0.07) !important;
+}
+
+.filter-panel {
+    display: grid !important;
+    grid-template-columns: 1.6fr 1fr 1fr 1fr !important;
+    gap: 16px !important;
+    padding: 18px 20px !important;
+    margin-bottom: 20px !important;
+    align-items: end !important;
+}
+
+.filter-control {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 6px !important;
+}
+
+.filter-control > label,
+.prediction-control > label {
+    margin: 0 !important;
+    color: var(--muted) !important;
+    font-size: 11px !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.06em !important;
+    line-height: 1.2 !important;
+    text-transform: uppercase !important;
+}
+
+.kpi-grid {
+    display: grid !important;
+    grid-template-columns: repeat(6, 1fr) !important;
+    gap: 14px !important;
+    margin-bottom: 20px !important;
+}
+
+.kpi-card {
+    min-height: auto !important;
+    padding: 20px 18px !important;
+    border-top: 0 !important;
+    transition: box-shadow 0.2s ease, transform 0.2s ease !important;
+}
+
+.kpi-card:hover {
+    box-shadow: 0 4px 12px rgba(8, 145, 178, 0.12) !important;
+    transform: translateY(-2px) !important;
+}
+
+.kpi-card h3 {
+    margin: 0 0 8px !important;
+    color: var(--muted) !important;
+    font-size: 11px !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.06em !important;
+    line-height: 1.25 !important;
+    text-transform: uppercase !important;
+}
+
+.kpi-card p {
+    margin: 0 !important;
+    color: var(--teal) !important;
+    font-family: 'Outfit', sans-serif !important;
+    font-size: 24px !important;
+    font-weight: 700 !important;
+    line-height: 1.1 !important;
+    letter-spacing: -0.02em !important;
+}
+
+.chart-grid {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: 14px !important;
+}
+
+.chart-card {
+    min-height: auto !important;
+    padding: 6px !important;
+    overflow: hidden !important;
+}
+
+.chart-card .dash-graph {
+    height: auto !important;
+}
+
+.prediction-section {
+    margin-top: 20px !important;
+    padding: 22px 24px !important;
+}
+
+.prediction-header {
+    gap: 6px !important;
+    margin-bottom: 18px !important;
+    padding-bottom: 18px !important;
+}
+
+.prediction-header h2 {
+    font-family: 'Outfit', sans-serif !important;
+    font-size: 24px !important;
+    line-height: 1.25 !important;
+    letter-spacing: -0.02em !important;
+}
+
+.prediction-header p:last-child {
+    max-width: 760px !important;
+    font-size: 14px !important;
+    line-height: 1.6 !important;
+}
+
+.prediction-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+    gap: 16px !important;
+    padding: 18px 20px !important;
+    background: var(--surface-soft) !important;
+    border: 1px solid var(--line) !important;
+    border-radius: 12px !important;
+}
+
+.predict-button {
+    min-height: 42px !important;
+    margin-top: 20px !important;
+    padding: 0 18px !important;
+    border-radius: 8px !important;
+    font-size: 14px !important;
+    font-weight: 700 !important;
+}
+
+@media (max-width: 900px) {
+    .filter-panel,
+    .prediction-grid {
+        grid-template-columns: 1fr 1fr !important;
+    }
+
+    .kpi-grid {
+        grid-template-columns: repeat(3, 1fr) !important;
+    }
+
+    .chart-grid {
+        grid-template-columns: 1fr !important;
+    }
+}
+
+@media (max-width: 620px) {
+    .dashboard-page {
+        padding: 24px 14px 36px !important;
+    }
+
+    .filter-panel,
+    .prediction-grid {
+        grid-template-columns: 1fr !important;
+    }
+
+    .kpi-grid {
+        grid-template-columns: 1fr 1fr !important;
+    }
+
+    .dashboard-header h1 {
+        font-size: 30px !important;
+    }
+}
+/* Exact back-button rendering match with sales dashboard */
+.back-btn {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    min-height: 30px !important;
+    box-sizing: border-box !important;
+    font-family: 'Plus Jakarta Sans', Arial, sans-serif !important;
+    line-height: 1.2 !important;
+    white-space: nowrap !important;
+}
+/* Exact back-button rendering shared by both dashboards */
+.back-btn {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    min-height: 30px !important;
+    box-sizing: border-box !important;
+    font-family: 'Plus Jakarta Sans', Arial, sans-serif !important;
+    line-height: 1.2 !important;
+    white-space: nowrap !important;
+}

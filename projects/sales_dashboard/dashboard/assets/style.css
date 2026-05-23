@@ -205,3 +205,34 @@ body {
     .dashboard-page { padding: 24px 14px 36px; }
     .kpi-grid { grid-template-columns: 1fr 1fr; }
 }
+/* Portfolio dashboard blue theme alignment */
+:root {
+    --bg: #eaf6fb;
+    --panel: #ffffff;
+    --border: #cfe4ee;
+    --text: #102a43;
+    --muted: #516c82;
+    --accent: #0787a5;
+    --accent-glow: rgba(7, 135, 165, 0.14);
+    --grid-color: rgba(8, 145, 178, 0.10);
+}
+
+body {
+    background-color: var(--bg) !important;
+    background-image:
+        linear-gradient(var(--grid-color) 1px, transparent 1px),
+        linear-gradient(90deg, var(--grid-color) 1px, transparent 1px) !important;
+    background-size: 32px 32px !important;
+    color: var(--text) !important;
+}
+/* Exact back-button rendering shared by both dashboards */
+.back-btn {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    min-height: 30px !important;
+    box-sizing: border-box !important;
+    font-family: 'Plus Jakarta Sans', Arial, sans-serif !important;
+    line-height: 1.2 !important;
+    white-space: nowrap !important;
+}
