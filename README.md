@@ -30,7 +30,7 @@ Machine learning project to predict customer churn using the Telco Customer Chur
 
 ```text
 Status: In Progress
-Stack: Python, pandas, scikit-learn, matplotlib, seaborn
+Stack: Python, pandas, scikit-learn, Dash, Plotly, Django
 Project path: projects/churn_prediction/
 ```
 
@@ -53,6 +53,8 @@ Highlights:
 - Rebuilt EDA notebook with churn insights
 - Rebuilt modeling notebook with multi-model comparison
 - Achieved ROC-AUC above 0.80 without data leakage
+- Built interactive Dash dashboard with churn-risk prediction form
+- Linked dashboard from Django portfolio detail page
 ```
 
 ## Local Development
@@ -72,13 +74,19 @@ uv run python manage.py runserver
 Run Sales Dashboard:
 
 ```powershell
-uv run python projects\sales_dashboard\dashboard\app.py
+uv run python projects/sales_dashboard/dashboard/app.py
 ```
 
 Prepare Churn Dataset:
 
 ```powershell
-uv run python projects\churn_prediction\src\prepare_data.py
+uv run python projects/churn_prediction/src/prepare_data.py
+```
+
+Run Churn Dashboard:
+
+```powershell
+uv run python projects/churn_prediction/dashboard/app.py
 ```
 
 ## Repository Notes

@@ -269,3 +269,12 @@ Recommended actions:
 [x] Add dashboard screenshots to README
 [ ] Prepare deployment
 ```
+
+## Documentation Review - 2026-05-23
+
+```text
+[Checked] README still matches current sales dashboard structure.
+[Checked] Dashboard is linked from Django portfolio detail page.
+[Checked] Dashboard screenshots are documented in reports/.
+[Checked] Back to Portfolio button is documented in progress checklist.
+```

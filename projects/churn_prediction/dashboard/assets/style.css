@@ -778,3 +778,27 @@ body {
         display: block;
     }
 }
+
+.back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    width: fit-content;
+    margin-bottom: 18px;
+    padding: 6px 14px;
+    border: 1px solid var(--teal);
+    border-radius: 20px;
+    color: var(--teal-dark);
+    background: rgba(255, 255, 255, 0.64);
+    font-size: 13px;
+    font-weight: 700;
+    text-decoration: none;
+    transition: border-color 160ms ease, color 160ms ease, background 160ms ease, transform 160ms ease;
+}
+
+.back-btn:hover {
+    color: #ffffff;
+    background: var(--teal);
+    border-color: var(--teal);
+    transform: translateY(-1px);
+}

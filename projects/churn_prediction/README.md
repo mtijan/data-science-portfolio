@@ -105,6 +105,7 @@ The dashboard provides:
 - Churn rate charts by contract, tenure group, payment method, and internet service.
 - A churn risk prediction form powered by the trained Gradient Boosting model.
 - Business-friendly prediction output with simple risk labels and recommended retention actions.
+- Back to Portfolio button for returning to the Django portfolio website.
 
 Run the dashboard:
 
@@ -116,6 +117,12 @@ Open in browser:
 
 ```text
 http://127.0.0.1:8051/
+```
+
+Portfolio detail page:
+
+```text
+http://127.0.0.1:8000/projects/churn-prediction/
 ```
 
 The dashboard uses the local model artifact:
@@ -178,7 +185,9 @@ This creates a local ignored model artifact and a tracked evaluation report.
 [x] Add threshold tuning for churn recall
 [x] Save best model to models/ (local, ignored by git)
 [x] Create evaluation report
-[ ] Update Django project detail page
+[x] Update Django project detail page
 [x] Add portfolio-ready screenshots/figures
 [x] Create interactive churn dashboard with prediction form
+[x] Link dashboard from Django portfolio detail page
+[x] Add Back to Portfolio button in dashboard header
 ```

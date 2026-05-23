@@ -145,6 +145,11 @@ app.layout = html.Div(
         html.Div(
             className="dashboard-header",
             children=[
+                html.A(
+                    "<- Back to Portfolio",
+                    href="http://127.0.0.1:8000/",
+                    className="back-btn",
+                ),
                 html.P("MACHINE LEARNING DASHBOARD", className="eyebrow"),
                 html.H1("Customer Churn Analytics"),
                 html.P(
