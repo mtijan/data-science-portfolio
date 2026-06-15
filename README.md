@@ -1,106 +1,71 @@
 # Data Science Portfolio
 
-Portfolio website and project workspace for practical data science, analytics, machine learning, and dashboard projects.
+A unified, professional-grade portfolio website and project workspace showcasing practical data science, analytics, machine learning, and Generative AI projects.
+
+## Architecture
+
+This project uses a **Unified Architectural Integration**:
+- **Core Framework**: Django 5.x acts as the central hub and content management system.
+- **Embedded Dashboards**: Interactive Dash/Plotly applications are embedded directly into Django templates using `django-plotly-dash`, providing a seamless user experience.
+- **Database Driven**: Project metadata (titles, summaries, tools, case studies) is stored in a SQLite database and can be managed via the **Django Admin**.
+- **Package Management**: Built and managed with `uv` for fast, reproducible environments.
 
 ## Projects
 
 ### 1. Sales Performance Dashboard
-
-Business intelligence dashboard for monitoring e-commerce sales, profit, product performance, customer segments, and discount impact.
-
-```text
-Status: Completed
-Stack: Python, pandas, Dash, Plotly, Django
-Project path: projects/sales_dashboard/
-```
-
-Highlights:
-
-```text
-- Data cleaning and feature engineering
-- Interactive KPI dashboard
-- Product, region, customer, and discount analysis
-- Dashboard screenshots and project README
-- Linked from Django portfolio website
-```
+Business intelligence dashboard for monitoring e-commerce sales, profit, and discount impact.
+- **Embedded App**: `SalesDashboard`
+- **Stack**: Python, pandas, Dash, Plotly
+- **Highlights**: Interactive KPI cards, monthly trends, and discount-to-profit sensitivity analysis.
 
 ### 2. Customer Churn Prediction
+Machine learning pipeline and risk simulator to predict customer attrition.
+- **Embedded App**: `ChurnPrediction`
+- **Stack**: Python, pandas, scikit-learn, Dash
+- **Performance**: Gradient Boosting model with **0.8435 ROC-AUC** and high recall (79%) for proactive retention.
 
-Machine learning project to predict customer churn using the Telco Customer Churn dataset.
-
-```text
-Status: In Progress
-Stack: Python, pandas, scikit-learn, Dash, Plotly, Django
-Project path: projects/churn_prediction/
-```
-
-Current valid modeling result:
-
-```text
-Best model: Gradient Boosting
-ROC-AUC: 0.8435
-Selected threshold: 0.28
-Recall churn: 0.7888
-Precision churn: 0.5315
-F1 churn: 0.6351
-```
-
-Highlights:
-
-```text
-- Replaced weak e-commerce churn dataset with Telco Customer Churn
-- Built reproducible data preparation script
-- Rebuilt EDA notebook with churn insights
-- Rebuilt modeling notebook with multi-model comparison
-- Achieved ROC-AUC above 0.80 without data leakage
-- Built interactive Dash dashboard with churn-risk prediction form
-- Linked dashboard from Django portfolio detail page
-```
+### 3. AI Document Assistant (RAG)
+Generative AI tool for querying unstructured PDF documents with source evidence.
+- **Embedded App**: `AIDocumentAssistant`
+- **Stack**: LangChain, ChromaDB, SumoPod API (GLM-5 Turbo)
+- **Highlights**: Retrieval-Augmented Generation with evidence-backed answers and source snippet display.
 
 ## Local Development
 
-Install dependencies with `uv`:
-
+### 1. Setup Environment
+Ensure you have `uv` installed, then run:
 ```powershell
 uv sync
 ```
 
-Run Django portfolio:
+### 2. Database & Content
+Apply migrations and populate the initial project data:
+```powershell
+uv run python manage.py migrate
+# Initial data is already populated if you use the existing db.sqlite3
+```
 
+### 3. Run the Portfolio
+Start the unified server (this hosts both the Django site and the embedded Dash apps):
 ```powershell
 uv run python manage.py runserver
 ```
+Visit `http://127.0.0.1:8000/` to explore the portfolio.
 
-Run Sales Dashboard:
-
+### 4. Admin Portal
+Manage projects and content through the admin interface:
 ```powershell
-uv run python projects/sales_dashboard/dashboard/app.py
+# Create a superuser if needed:
+# uv run python manage.py createsuperuser
 ```
+Visit `http://127.0.0.1:8000/admin/` to edit project details.
 
-Prepare Churn Dataset:
-
-```powershell
-uv run python projects/churn_prediction/src/prepare_data.py
-```
-
-Run Churn Dashboard:
-
-```powershell
-uv run python projects/churn_prediction/dashboard/app.py
-```
+## Repository Structure
+- `portfolio/`: Django application logic and embedded Dash app definitions.
+- `projects/`: Core data science project workspaces (scripts, notebooks, models).
+- `portofolio_site/`: Project-wide settings and URL configuration.
+- `static/`: Global CSS and assets.
 
 ## Repository Notes
-
-Raw datasets, processed datasets, models, vector stores, and local planning notes are excluded from git.
-
-Ignored local files include:
-
-```text
-projects/*/data/raw/
-projects/*/data/processed/
-projects/*/models/
-note_utama.md
-step.md
-note_command.md
-AGENTS.md
+Raw datasets, models, vector stores, and private keys are excluded from git.
 ```

@@ -13,11 +13,20 @@ Raw e-commerce data
 -> case study page di Django portfolio
 ```
 
-## Dashboard Preview
+## Interactive Dashboard
 
 The dashboard is designed as a business intelligence case study, not only a chart collection. It highlights KPI performance, filterable business views, and recommendations that connect analysis to decision making.
 
-![Sales Dashboard Overview](reports/sales_dashboard_overview.png)
+### Unified Portfolio Integration
+The dashboard is now **embedded directly** into the Django portfolio website for a seamless experience.
+- **Embedded URL**: `http://127.0.0.1:8000/projects/sales-dashboard/`
+
+### Standalone Mode (Optional)
+You can still run the dashboard in standalone mode for local testing:
+```powershell
+uv run python projects/sales_dashboard/dashboard/app.py
+```
+Open in browser: `http://127.0.0.1:8050/`
 
 ### Business Insight
 

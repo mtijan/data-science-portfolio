@@ -98,44 +98,16 @@ The Gradient Boosting model achieves strong ranking performance with ROC-AUC abo
 
 This project includes an interactive Dash dashboard for exploring churn patterns and testing customer churn risk scenarios.
 
-The dashboard provides:
+### Unified Portfolio Integration
+The dashboard is now **embedded directly** into the Django portfolio website for a seamless experience.
+- **Embedded URL**: `http://127.0.0.1:8000/projects/churn-prediction/`
 
-- KPI cards for total customers, churned customers, retained customers, churn rate, and average monthly charges.
-- Interactive filters for contract type, tenure group, payment method, and internet service.
-- Churn rate charts by contract, tenure group, payment method, and internet service.
-- A churn risk prediction form powered by the trained Gradient Boosting model.
-- Business-friendly prediction output with simple risk labels and recommended retention actions.
-- Back to Portfolio button for returning to the Django portfolio website.
-
-Run the dashboard:
-
+### Standalone Mode (Optional)
+You can still run the dashboard in standalone mode for local testing:
 ```powershell
 uv run python projects/churn_prediction/dashboard/app.py
 ```
-
-Open in browser:
-
-```text
-http://127.0.0.1:8051/
-```
-
-Portfolio detail page:
-
-```text
-http://127.0.0.1:8000/projects/churn-prediction/
-```
-
-The dashboard uses the local model artifact:
-
-```text
-projects/churn_prediction/models/churn_gradient_boosting.joblib
-```
-
-The model artifact is intentionally not committed to GitHub. Recreate it by running:
-
-```powershell
-uv run python projects/churn_prediction/src/train_model.py
-```
+Open in browser: `http://127.0.0.1:8051/`
 
 ## Main Files
 
