@@ -1,4 +1,5 @@
 {% extends "portfolio/base.html" %}
+{% load plotly_dash %}
 
 {% block content %}
 <section class="project-hero-detail">
@@ -47,6 +48,20 @@
         </aside>
     </div>
 </section>
+
+{% if project.dash_app_name %}
+<section class="section dash-embed-section">
+    <div class="section-heading-row">
+        <div>
+            <p class="project-category">Live Demo</p>
+            <h2>Interactive Dashboard</h2>
+        </div>
+    </div>
+    <div class="dash-container">
+        {% plotly_app name=project.dash_app_name ratio=0.65 %}
+    </div>
+</section>
+{% endif %}
 
 <section class="section case-study-grid">
     <article class="case-card">
